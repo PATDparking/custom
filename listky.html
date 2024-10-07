@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://www.gstatic.com/firebasejs/9.21.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.21.0/firebase-database-compat.js"></script>
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyC7EOZG-QwLkIeECMzj_CwBXj1Cwj2PO_E",
+  authDomain: "patcappl.firebaseapp.com",
+  databaseURL: "https://patcappl-default-rtdb.firebaseio.com",
+  projectId: "patcappl",
+  storageBucket: "patcappl.appspot.com",
+  messagingSenderId: "134567533924",
+  appId: "1:134567533924:web:5325a6bbca30e244b32e71",
+  measurementId: "G-S8LHWSE9CH"
+        };
+        const app = firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+    </script>
+    <title>Lístky</title>
+    
+    <style>
+        body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f2f5; /* Jemně šedé pozadí */
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); /* Dynamické sloupce */
+    gap: 20px; /* Mezera mezi dlaždicemi */
+}
+
+.stand {
+    background-color: #ffffff; /* Bílé pozadí */
+    border-radius: 12px; /* Zaoblené rohy */
+    padding: 20px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1); /* Jemný stín */
+    transition: transform 0.2s, box-shadow 0.2s; /* Efekt na hover */
+}
+
+.stand:hover {
+    transform: translateY(-5px); /* Zvednutí při hoveru */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); /* Silnější stín */
+}
+
+.stand h2 {
+    font-size: 1.9em;
+    color: #666666; /* Barva pro název stojanu */
+    margin-bottom: 10px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Přidání stínu */
+    border-radius: 8px;
+    padding-left: 5px;
+    text-align: center;
+}
+
+
+.slot {
+    margin-bottom: 15px;
+}
+
+.slider {
+    width: 100%;
+    cursor: pointer; /* Změna kurzoru na pointer */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Přidání stínu */
+    
+}
+
+.status {
+    font-weight: bold;
+    color: #6666; /* Tmavě šedá barva pro status */
+    margin-top: 10px; /* Mezery mezi sliderem a statusem */
+    font-size: 1.5em; /* Zvětšení velikosti písma */
+    
+}
+
+.status-full {
+    color: green; /* Zelená pro plnou krabici */
+    
+}
+
+.status-empty {
+    color: red; /* Červená pro prázdnou krabici */
+}
+
+.status-quarter {
+    color: orange; /* Oranžová pro čtvrt */
+}
+
+.status-half {
+    color: gold; /* Zlatá pro půlku */
+}
+
+.status-three-quarters {
+    color: #FF8C00; /* Tmavší barva pro tři čtvrtě */
+    
+}
+/* Posuvník stylování */
+.slider {
+    -webkit-appearance: none; /* Odebrání výchozí stylu pro WebKit prohlížeče */
+    appearance: none; /* Odebrání výchozí stylu pro ostatní prohlížeče */
+    width: 100%; /* Šířka posuvníku */
+    height: 20px; /* Výška posuvníku */
+    background: #ddd; /* Světle šedé pozadí */
+    border-radius: 5px; /* Zaoblené rohy */
+    outline: none; /* Odebrání rámečku při zaostření */
+    transition: background 0.3s; /* Plynulý přechod pozadí */
+    position: relative; /* Relativní pozice pro pseudo-element */
+    
+}
+
+.slider:hover {
+    background: #bbb; /* Tmavší šedá při hoveru */
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Odebrání výchozí stylu pro WebKit prohlížeče */
+    appearance: none; /* Odebrání výchozí stylu pro ostatní prohlížeče */
+    width: 30px; /* Šířka posuvníku */
+    height: 30px; /* Výška posuvníku */
+    background: #007BFF; /* Modrá barva pro thumb */
+    border-radius: 50%; /* Kulatý tvar */
+    cursor: pointer; /* Změna kurzoru na pointer */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Jemný stín */
+    position: relative; /* Relativní pozice pro thumb */
+    z-index: 1; /* Zajištění, že thumb je nad barvou */
+    
+}
+
+.slider::-moz-range-thumb {
+    width: 20px; /* Šířka posuvníku */
+    height: 20px; /* Výška posuvníku */
+    background: #007BFF; /* Modrá barva pro thumb */
+    border-radius: 50%; /* Kulatý tvar */
+    cursor: pointer; /* Změna kurzoru na pointer */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Jemný stín */
+    
+}
+
+/* Tlačítko "Domů" */
+.home-button {
+    background-color: #007BFF; /* Modrá barva */
+    color: white;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 20px; /* Vzdálenost od horní části stránky */
+    transition: background-color 0.3s, transform 0.2s; /* Přidání přechodů */
+}
+
+.home-button:hover {
+    background-color: #0056b3; /* Tmavší modrá při hoveru */
+    transform: translateY(-2px); /* Mírné zvednutí při hoveru */
+}
+
+/* Kontejner pro stojany */
+.container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); /* Dynamické sloupce */
+    gap: 20px;
+}
+/* Styl pro tlačítko Vypnout/Zapnout */
+.toggle-button {
+    background-color: transparent; /* Modrá barva */
+    color: #666666;
+    padding: 10px 15px;
+    font-size: 1em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px; /* Vzdálenost od ostatních prvků */
+    transition: background-color 0.3s, transform 0.2s; /* Přidání přechodů */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Přidání stínu */
+    
+}
+
+.toggle-button:hover {
+    background-color: #cccccc; /* Tmavší modrá při hoveru */
+    transform: translateY(-2px); /* Mírné zvednutí při hoveru */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1); /* Jemný stín */
+    
+}
+
+/* Styl pro zobrazení stavu stojanu */
+.operational-status {
+    margin-left: 10px; /* Mezery vedle tlačítka */
+    font-weight: bold;
+}
+
+/* Styl pro každý stojan */
+.stand {
+    background-color: #ffffff; /* Bílé pozadí - bude přepsáno dynamickou barvou */
+    border-radius: 12px; /* Zaoblené rohy */
+    padding: 20px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1); /* Jemný stín */
+    transition: background-color 0.3s, transform 0.2s; /* Přidání přechodu pro změnu barvy */
+}
+
+.fade-in {
+    transition: opacity 0.5s ease-in-out;
+    opacity: 1;
+}
+input[type="range"]:disabled {
+    opacity: 0.9;
+    cursor: not-allowed;
+    scale: 0.9;
+    
+}
+
+button {
+    background-color: #007BFF; /* Primární modrá barva */
+    color: white; /* Bílý text */
+    border: none; /* Žádné okraje */
+    padding: 10px 20px; /* Velikost tlačítka */
+    margin-top: 10px;
+    font-size: 16px; /* Velikost textu */
+    border-radius: 8px; /* Zaoblené rohy */
+    cursor: pointer; /* Ukazatel myši */
+    transition: background-color 0.3s, transform 0.3s ease; /* Přechod pro plynulé změny */
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3); /* Jemný stín pro efekt */
+}
+
+button:hover {
+    background-color: #0056b3; /* Tmavší modrá při najetí */
+    transform: scale(1.05); /* Mírné zvětšení tlačítka při hoveru */
+}
+
+button:active {
+    background-color: #004494; /* Ještě tmavší modrá při kliknutí */
+    transform: scale(0.98); /* Mírné zmenšení při kliknutí */
+}
+
+button:disabled {
+    background-color: #cccccc; /* Šedá pro neaktivní stav */
+    color: #666666; /* Ztlumený text */
+    cursor: not-allowed; /* Ukazatel pro neaktivní tlačítko */
+    box-shadow: none; /* Žádný stín při deaktivaci */
+}
+
+.slider-controls {
+    display: flex;
+    align-items: center;
+}
+
+.arrow {
+    background-color: transparent;
+    color: #007BFF;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+    font-size: 15px;
+    margin: 0 10px; /* Zvětšený margin mezi šipkami a posuvníkem */
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Přidání stínu */
+}
+
+.arrow:hover {
+    background-color: #0056b3;
+    color: white;
+}
+
+.slider {
+    flex-grow: 1; /* Posuvník vyplní zbývající místo mezi šipkami */
+}
+
+.stand .edit-btn {
+    width: 50%; /* Nastaví šířku tlačítka na 100% */
+    padding: 10px; /* Přidá trochu paddingu pro lepší vzhled */
+    background-color: transparent; /* Modrá barva pozadí */
+    color: #666666; /* Bílý text */
+    border: none; /* Bez okraje */
+    border-radius: 5px; /* Zaoblení rohů */
+    cursor: pointer; /* Ukazatel myši jako ruka */
+    margin-bottom: 10px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Přidání stínu */
+}
+    </style>
+</head>
+<body>
+    <button class="home-button" onclick="window.location.href='main.html'">Domů</button>
+    <h1>SPRÁVA LÍSTKŮ</h1>
+    <div class="container" id="standsContainer">
+        <!-- Stojany se sloty pro lístky se budou generovat pomocí JavaScriptu -->
+    </div>
+
+    <script src="lístkysc.js"></script>
+
+</body>
+</html>

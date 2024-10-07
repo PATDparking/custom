@@ -1,0 +1,61 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f0f0;
+    color: #363636;
+    padding: 20px;
+}
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+h1, h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.history-entry {
+    background: #f9f9f9;
+    border-left: 6px solid #00d1b2;
+    margin-bottom: 15px;
+    padding: 15px;
+    border-radius: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.3s;
+}
+.history-entry:hover {
+    background-color: #e6f7f8;
+}
+.history-entry button {
+    background: #ff3860;
+    color: white;
+    border: none;
+    padding: 7px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.history-entry button:hover {
+    background: #ff4f7a;
+}
+.total-amount {
+    font-size: 1.8em;
+    text-align: center;
+    margin-top: 30px;
+}
+.history-title {
+    margin-top: 40px;
+    font-weight: bold;
+    color: #00d1b2;
+}
+.nominal-history {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}

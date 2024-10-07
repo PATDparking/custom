@@ -1,0 +1,311 @@
+/* Global styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #e9ecef; /* Světle šedé pozadí */
+    margin: 0;
+    padding: 20px;
+}
+
+/* Container styles */
+.container {
+    max-width: 600px; /* Maximální šířka kontejneru */
+    margin: auto; /* Vycentrování */
+    background: #ffffff; /* Bílé pozadí */
+    border-radius: 12px; /* Zaoblené rohy */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Jemný stín */
+    padding: 40px; /* Vnitřní padding zvětšeno */
+}
+
+/* Heading styles */
+h1 {
+    text-align: center; /* Vycentrování textu */
+    color: #343a40; /* Tmavě šedá barva textu */
+    margin-bottom: 30px; /* Mezera pod nadpisem zvětšena */
+    font-size: 3em; /* Velikost písma zvětšena */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1); /* Jemný stín pro nadpis */
+}
+
+h2 {
+    color: #495057; /* Barva pro podnadpis */
+    border-bottom: 2px solid #007BFF; /* Spodní okraj v modré barvě */
+    padding-bottom: 15px; /* Mezera pod podnadpisem zvětšena */
+    margin-bottom: 30px; /* Mezera pod podnadpisem zvětšena */
+    font-size: 2em; /* Velikost písma pro podnadpis zvětšena */
+}
+
+/* Input group styles */
+.input-group {
+    display: flex; /* Flexbox pro zarovnání */
+    justify-content: space-between; /* Změna orientace na sloupec */
+    flex-wrap: wrap;
+    align-items: flex-start;
+    margin-bottom: 10px; /* Mezera pod skupinou zvětšena */
+    padding: 30px; /* Vnitřní padding zvětšeno */
+    border-radius: 8px; /* Zaoblené rohy */
+    background-color: #f8f9fa; /* Světle šedé pozadí */
+    transition: background-color 0.3s, transform 0.2s; /* Efekt na pozadí a transformaci */
+    border: 1px solid #ced4da; /* Přidání okraje */
+}
+
+.input-group:hover {
+    background-color: #e2e6ea; /* Změna pozadí při hover */
+    transform: scale(1.02); /* Zvýšení při hover */
+}
+
+/* Button container for deposit/withdraw buttons */
+.button-group {
+    display: flex; /* Flexbox pro umístění tlačítek vedle sebe */
+    gap: 15px; /* Mezera mezi tlačítky zvětšena */
+    padding-top: 10px;
+}
+
+/* Right group styles */
+.right-group {
+    display: flex; /* Používá flexbox pro pravou část */
+    align-items: center; /* Zarovná prvky vertikálně na střed */
+    justify-content: flex-end; /* Zarovná prvky na pravou stranu */
+}
+
+/* Label styles */
+label {
+    color: #6c757d; /* Šedá barva popisu */
+    font-weight: 600; /* Tučný popis */
+    font-size: 1.1em; /* Velikost písma zvětšena */
+}
+
+/* Input field styles */
+input[type="number"],
+input[type="text"] {
+    width: 100%; /* Šířka vstupu na 100 % */
+    max-width: 300px; /* Maximální šířka pro vstup */
+    padding: 15px; /* Vnitřní padding zvětšeno */
+    border: 1px solid #ced4da; /* Světle šedý okraj */
+    border-radius: 6px; /* Zaoblené rohy */
+    transition: border-color 0.3s, box-shadow 0.3s; /* Efekt na zaostření */
+    font-size: 1.2em; /* Velikost písma zvětšena */
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); /* Jemný vnitřní stín */
+}
+
+input[type="number"]:focus,
+input[type="text"]:focus {
+    border-color: #007BFF; /* Modrý okraj při zaostření */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Stín při zaostření */
+    outline: none; /* Odebrání defaultního rámečku */
+}
+
+/* Total display styles */
+span {
+    font-weight: bold; /* Tučný text */
+    color: #3c81cc; /* Modrá barva pro celkovou částku */
+    margin-top: 10px; /* Mezera nad celkovou částkou zvětšena */
+    text-align: left; /* Zarovnání textu na střed */
+    font-size: 1.9em; /* Velikost písma zvětšena */
+}
+
+/* Button styles */
+button {
+    background-color: #007BFF; /* Modré pozadí pro tlačítko */
+    color: white; /* Bílé písmo */
+    border: none; /* Odebrání defaultního okraje */
+    padding: 10px 20px; /* Vnitřní padding zvětšeno */
+    border-radius: 6px; /* Zaoblené rohy */
+    cursor: pointer; /* Změna kurzoru na pointer */
+    font-size: 1em; /* Velikost písma zvětšena */
+    transition: background-color 0.3s, transform 0.2s; /* Efekty na hover */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Jemný stín */
+}
+
+button:hover {
+    background-color: #0056b3; /* Tmavší modrá při hover */
+    transform: translateY(-1px); /* Zvednutí tlačítka při hover */
+}
+
+/* History styles */
+#history {
+    margin-top: 30px; /* Horní mezera zvětšena */
+    padding: 20px; /* Vnitřní padding zvětšeno */
+    border: 1px solid #dee2e6; /* Světle šedý okraj */
+    border-radius: 6px; /* Zaoblené rohy */
+    background: #f9f9f9; /* Světle šedé pozadí pro historii */
+    max-height: 300px; /* Maximální výška zvětšena */
+    overflow-y: auto; /* Skrolování v případě přetečení */
+}
+
+/* History entry styles */
+.history-entry {
+    padding: 15px; /* Vnitřní padding zvětšeno */
+    border-bottom: 1px solid #ddd; /* Světle šedý oddělovač */
+    font-size: 1em; /* Velikost písma pro položky historie zvětšena */
+    color: #495057; /* Tmavě šedá barva pro text historie */
+    transition: background-color 0.3s; /* Přechod na pozadí */
+}
+
+.history-entry:hover {
+    background-color: #e9ecef; /* Světle šedé pozadí při hover */
+}
+
+.history-entry:last-child {
+    border-bottom: none; /* Odebrání spodního okraje pro poslední položku */
+}
+
+.history-entry button {
+    background-color: #dc3545; /* Červené pozadí pro tlačítko smazat */
+    border: none; /* Odebrání defaultního okraje */
+    color: white; /* Bílé písmo */
+    padding: 8px 15px; /* Vnitřní padding zvětšeno */
+    border-radius: 4px; /* Zaoblené rohy */
+    font-size: 0.95em; /* Velikost písma pro tlačítko zvětšena */
+    transition: background-color 0.3s; /* Přechod pro tlačítko */
+}
+
+.history-entry button:hover {
+    background-color: #c82333; /* Tmavší červená při hover */
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+    .input-group {
+        align-items: flex-start; /* Zarovnání vlevo */
+    }
+
+    .input-group label {
+        margin-bottom: 8px; /* Mezera pod popiskem zvětšena */
+    }
+
+    button {
+        width: 100%; /* Šířka tlačítka na 100 % pro mobilní zařízení */
+    }
+}
+
+#modal {
+    display: none; /* Skryté ve výchozím stavu */
+    justify-content: center; /* Upravte pro vycentrování */
+    align-items: center; /* Upravte pro vycentrování */
+    position: fixed; /* Připojeno k oknu */
+    top: 0;
+    left: 0;
+    width: 100%; /* Šířka 100% */
+    height: 100%; /* Výška 100% */
+    background-color: rgba(0, 0, 0, 0.5); /* Poloprůhledné pozadí */
+    z-index: 1000; /* Zajištění, že modal je nad ostatními prvky */
+}
+
+#modal-content {
+    background-color: #fff; /* Bílé pozadí */
+    padding: 30px; /* Padding uvnitř modal */
+    border-radius: 8px; /* Zaoblené rohy */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Stín */
+    width: 90%; /* Šířka modalu */
+    max-width: 500px; /* Maximální šířka modalu */
+    margin: auto; /* Vycentrování */
+}
+
+#modal-title {
+    text-align: center; /* Vycentrování textu */
+    font-size: 1.5em; /* Velikost písma zvětšena */
+}
+
+/* Přidejte další styly pro modal, pokud je to potřeba */
+.history {
+    margin-top: 15px; /* Horní mezera zvětšena */
+    font-size: 1em; /* Velikost písma zvětšena */
+    color: rgb(0, 0, 0); /* Šedá barva pro historii */
+    padding: 10px;
+    background-color: #d6d6d6d7;
+    border-radius: 8px;
+    flex-basis: 100%; /* Zajistí, že historie bude přes celou šířku */
+    margin-top: 10px; /* Malá mezera nahoře */
+}
+.input-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; /* Zarovnání všech prvků nahoru */
+    margin-bottom: 10px;
+}
+.input-group label, 
+.input-group input, 
+.input-group textarea {
+    flex-basis: 20%;
+    margin-right: 10px;
+}
+
+.button-group {
+    display: flex;
+    gap: 5px;
+}
+
+.full-width-button {
+    width: 100%; /* Šířka tlačítka na 100 % */
+    box-sizing: border-box; /* Zajistí, že padding a border se započítají do šířky */
+    background-color: #007BFF; /* Barva pozadí */
+    color: white; /* Barva textu */
+    border: none; /* Odebrání defaultního okraje */
+    padding: 20px; /* Větší vnitřní padding */
+    font-size: 1.5em; /* Zvýšení velikosti písma */
+    border-radius: 6px; /* Zaoblené rohy */
+    cursor: pointer; /* Změna kurzoru na pointer */
+    transition: background-color 0.3s, transform 0.2s; /* Efekty na hover */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Jemný stín */
+}
+
+.full-width-button:hover {
+    background-color: #0056b3; /* Tmavší modrá při hover */
+    transform: translateY(-2px); /* Mírný posun nahoru při hover */
+}
+
+
+
+
+.total-container {
+    width: 100%; /* Zajistí, že se použije celá šířka */
+    margin-top: 5px; /* Přidá mezeru nad celkovou částkou */
+    text-align: left; /* Zarovná text nalevo */
+    font-weight: bold; /* Tučné písmo pro celkovou částku */
+    color: #3c81cc; /* Barva pro celkovou částku */
+}
+#summary {
+    background-color: #f8f9fa; /* Světle šedé pozadí */
+    border: 1px solid #ced4da; /* Světle šedý okraj */
+    border-radius: 6px; /* Zaoblené rohy */
+    padding: 10px; /* Menší vnitřní padding */
+    margin-top: 10px; /* Vzdálenost nad souhrnem */
+    font-size: 1em; /* Menší velikost písma */
+    color: #343a40; /* Tmavě šedá barva textu */
+    display: grid; /* Použití gridu pro rozdělení do sloupců */
+    grid-template-columns: repeat(2, 1fr); /* Dva stejné sloupce */
+    gap: 10px; /* Mezera mezi položkami */
+}
+
+.confirmation {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    z-index: 1000;
+    overflow: hidden;
+    display: inline-block;
+    width: 250px;
+    box-shadow: 0px 4px 6px rgba(0,0,0,0.1);
+}
+
+.confirmation .loading-bar {
+    height: 4px;
+    background-color: #fff; /* Barva načítací čáry */
+    width: 0;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    animation: loading 2s linear forwards; /* Délka animace 2 sekundy */
+}
+
+@keyframes loading {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
+}

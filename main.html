@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hlavní menu - Moderní redesign</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+      /* Globální styly */
+      body {
+        font-family: 'Roboto', sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+      }
+
+      h1, h2 {
+        color: #333;
+      }
+
+      /* Styl pro kontejner menu */
+      .menu-container {
+        background-color: #ffffff;
+        border-radius: 16px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        max-width: 800px;
+        width: 100%;
+        margin-bottom: 30px;
+        text-align: center;
+        transition: box-shadow 0.3s;
+      }
+
+      .menu-container:hover {
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      }
+
+      h1 {
+        font-size: 2.5em;
+        margin-bottom: 10px;
+      }
+
+      h2 {
+        font-size: 1.8em;
+        margin-bottom: 20px;
+        color: #666;
+      }
+
+      /* Styl pro tlačítka menu - moderní styl */
+      .menu-button {
+        display: inline-block;
+        background-color: #007BFF;
+        color: white;
+        border: none;
+        padding: 20px;
+        margin: 15px;
+        font-size: 1.5em;
+        border-radius: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.2s;
+        width: 200px;
+        height: 100px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        text-align: center;
+        vertical-align: middle;
+      }
+
+      .menu-button:hover {
+        background-color: #0056b3;
+        transform: translateY(-3px);
+      }
+
+      .menu-button:active {
+        transform: scale(0.98);
+      }
+
+      /* Styl pro To-Do List */
+      .todo-container {
+        background-color: #ffffff;
+        border-radius: 16px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        max-width: 800px;
+        width: 100%;
+        margin-top: 20px;
+      }
+
+      #taskInput {
+        width: 70%;
+        padding: 15px;
+        font-size: 1.2em;
+        border: 1px solid #ced4da;
+        border-radius: 8px;
+        margin-bottom: 20px;
+      }
+
+      #addTaskButton {
+        padding: 15px 25px;
+        background-color: #28a745;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 1.2em;
+        transition: background-color 0.3s;
+      }
+
+      #addTaskButton:hover {
+        background-color: #218838;
+      }
+
+      ul {
+        list-style-type: none;
+        padding: 0;
+        margin-top: 20px;
+      }
+
+      li {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 10px 0;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        transition: background-color 0.3s ease;
+      }
+
+      li:hover {
+        background-color: #e9ecef;
+      }
+
+      input[type="checkbox"] {
+        width: 25px;
+        height: 25px;
+        margin-right: 10px;
+      }
+
+      button.delete-button {
+        background-color: #dc3545;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        padding: 10px 15px;
+        transition: background-color 0.3s;
+      }
+
+      button.delete-button:hover {
+        background-color: #c82333;
+      }
+
+      /* Fade-in efekt při načítání stránky */
+      .fade-in {
+        opacity: 0;
+        animation: fadeInAnimation 1s forwards;
+      }
+      @keyframes fadeInAnimation {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+
+      /* Styl pro další kontejnery */
+      .info-container {
+        background-color: #ffffff;
+        border-radius: 16px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        max-width: 800px;
+        width: 100%;
+        margin-top: 20px;
+        text-align: left;
+      }
+
+      .info-container h2 {
+        font-size: 1.8em;
+        color: #444;
+        margin-bottom: 15px;
+      }
+
+      .info-container p {
+        font-size: 1.2em;
+        line-height: 1.6;
+        color: #555;
+      }
+
+      /* Styl pro časovač směny */
+      .timer-container {
+        background-color: #ffffff;
+        border-radius: 16px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        max-width: 800px;
+        width: 100%;
+        margin-top: 20px;
+        text-align: center;
+      }
+
+      .timer-bar {
+        width: 100%;
+        height: 30px;
+        background-color: #e9ecef;
+        border-radius: 8px;
+        overflow: hidden;
+        margin-top: 20px;
+      }
+
+      .timer-bar-inner {
+        height: 100%;
+        background-color: #007BFF;
+        width: 0;
+        transition: width 1s linear;
+      }
+    </style>
+</head>
+<body>
+    <div class="menu-container fade-in">
+        <div id="connection-indicator" style="display: none; padding: 10px; text-align: center; font-weight: bold;"></div>
+        <h2>ASISTENT ASISTENTA</h2>
+        <div id="datetime"></div> <!-- Zobrazí datum a čas -->
+        <h1 id="greeting">VÍTEJ V PRÁCI</h1>
+        <h2>LETIŠTĚ PRAHA</h2>
+    </div>
+    <div class="menu-container fade-in">
+        <h1>Hlavní menu</h1>
+        <button class="menu-button" onclick="window.location.href='index.html'">TREZOR</button> <!-- Odkaz na stránku Trezor -->
+        <button class="menu-button" onclick="window.location.href='listky.html'">LÍSTKY</button>
+        <button class="menu-button" onclick="window.location.href='dispatch.html'">DISPEČER</button> <!-- Odkaz na stránku Dispečer -->
+       
+    </div>
+    <div class="todo-container fade-in">
+        <h1>To-Do List</h1>
+        <div>
+            <input type="text" id="taskInput" placeholder="Přidej nový úkol..." />
+            <button id="addTaskButton">Přidat úkol</button>
+        </div>
+        <ul id="taskList">
+            <!-- Úkoly se zobrazí zde -->
+        </ul>
+    </div>
+    <div class="timer-container fade-in">
+        <h2>Čas do konce směny</h2>
+        <div class="timer-bar">
+            <div class="timer-bar-inner" id="timerBar"></div>
+        </div>
+        <p id="timeRemaining"></p>
+    </div>
+    <script>
+        function updateGreeting() {
+            const now = new Date();
+            const hours = now.getHours();
+            let greeting;
+            if (hours < 12) {
+                greeting = 'DOBRÉ RÁNO!';
+            } else if (hours < 18) {
+                greeting = 'DOBRÉ ODPOLEDNE!';
+            } else {
+                greeting = 'KRÁSNOU NOČNÍ!';
+            }
+            document.getElementById("greeting").innerText = greeting;
+        }
+
+        // Zavolání funkce při načtení stránky
+        window.onload = function() {
+            updateGreeting();
+            updateTimer();
+        };
+
+        function updateDateTime() {
+            const now = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const formattedDate = now.toLocaleDateString('cs-CZ', options);
+            const formattedTime = now.toLocaleTimeString('cs-CZ');
+            document.getElementById("datetime").innerHTML = `${formattedDate}, ${formattedTime}`;
+        }
+
+        // Aktualizace každou sekundu
+        setInterval(updateDateTime, 1000);
+        updateDateTime();
+
+        // Funkce pro přidání úkolu
+        document.getElementById('addTaskButton').addEventListener('click', function() {
+            const taskInput = document.getElementById('taskInput');
+            const taskText = taskInput.value.trim();
+            if (taskText) {
+                const taskList = document.getElementById('taskList');
+                const li = document.createElement('li');
+                li.textContent = taskText;
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Odstranit';
+                deleteButton.classList.add('delete-button');
+                deleteButton.addEventListener('click', function() {
+                    taskList.removeChild(li);
+                    saveTasks();
+                });
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.addEventListener('change', function() {
+                    if (checkbox.checked) {
+                        li.style.textDecoration = 'line-through';
+                    } else {
+                        li.style.textDecoration = '';
+                    }
+                    saveTasks();
+                });
+                li.appendChild(checkbox);
+                li.appendChild(deleteButton);
+                taskList.appendChild(li);
+                taskInput.value = '';
+                saveTasks();
+            } else {
+                alert('Prosím zadej úkol.');
+            }
+        });
+
+        function saveTasks() {
+            const taskList = document.getElementById('taskList');
+            const tasks = [];
+            for (let i = 0; i < taskList.children.length; i++) {
+                tasks.push({
+                    text: taskList.children[i].childNodes[0].textContent,
+                    completed: taskList.children[i].childNodes[1].checked
+                });
+            }
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+        }
+
+        function loadTasks() {
+            const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+            const taskList = document.getElementById('taskList');
+            tasks.forEach(task => {
+                const li = document.createElement('li');
+                li.textContent = task.text;
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Odstranit';
+                deleteButton.classList.add('delete-button');
+                deleteButton.addEventListener('click', function() {
+                    taskList.removeChild(li);
+                    saveTasks();
+                });
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.checked = task.completed;
+                checkbox.addEventListener('change', function() {
+                    if (checkbox.checked) {
+                        li.style.textDecoration = 'line-through';
+                    } else {
+                        li.style.textDecoration = '';
+                    }
+                    saveTasks();
+                });
+                if (task.completed) {
+                    li.style.textDecoration = 'line-through';
+                }
+                li.appendChild(checkbox);
+                li.appendChild(deleteButton);
+                taskList.appendChild(li);
+            });
+        }
+
+        // Aktualizace indikátoru připojení
+        function updateConnectionIndicator() {
+            const indicator = document.getElementById('connection-indicator');
+            if (navigator.onLine) {
+                indicator.style.display = 'none';
+            } else {
+                indicator.style.display = 'block';
+                indicator.innerText = 'Jste offline. Některé funkce nemusí být dostupné.';
+                indicator.style.backgroundColor = '#f44336';
+                indicator.style.color = 'white';
+            }
+        }
+
+        window.addEventListener('online', updateConnectionIndicator);
+        window.addEventListener('offline', updateConnectionIndicator);
+        updateConnectionIndicator();
+        loadTasks();
+
+        // Funkce pro aktualizaci časovače
+        function updateTimer() {
+            let shiftEnd = localStorage.getItem('shiftEnd');
+            if (!shiftEnd) {
+                shiftEnd = new Date();
+                shiftEnd.setHours(shiftEnd.getHours() + 12);
+                localStorage.setItem('shiftEnd', shiftEnd);
+            } else {
+                shiftEnd = new Date(shiftEnd);
+            }
+            const timerBar = document.getElementById('timerBar');
+            setInterval(function() {
+                const now = new Date();
+                const timeLeft = Math.max(shiftEnd - now, 0);
+                const hoursLeft = Math.floor(timeLeft / (1000 * 60 * 60));
+                const minutesLeft = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                const secondsLeft = Math.floor((timeLeft % (1000 * 60)) / 1000);
+                document.getElementById('timeRemaining').innerText = `Zbývá: ${hoursLeft} hodin, ${minutesLeft} minut, ${secondsLeft} sekund`;
+                const progress = ((12 * 3600 * 1000 - timeLeft) / (12 * 3600 * 1000)) * 100;
+                timerBar.style.width = `${progress}%`;
+            }, 1000);
+        }
+    </script>
+</body>
+</html>

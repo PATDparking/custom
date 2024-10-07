@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="dispatch.css">
+    <title>Parkovací Dům</title>
+    <script src="https://www.gstatic.com/firebasejs/9.21.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.21.0/firebase-database-compat.js"></script>
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyC7EOZG-QwLkIeECMzj_CwBXj1Cwj2PO_E",
+    authDomain: "patcappl.firebaseapp.com",
+    databaseURL: "https://patcappl-default-rtdb.firebaseio.com",
+    projectId: "patcappl",
+    storageBucket: "patcappl.appspot.com",
+    messagingSenderId: "134567533924",
+    appId: "1:134567533924:web:5325a6bbca30e244b32e71",
+    measurementId: "G-S8LHWSE9CH"
+        };
+        const app = firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        document.addEventListener("DOMContentLoaded", function () {
+            displayParkingFloors();
+        });
+
+        function displayParkingFloors() {
+            const parkingContainer = document.getElementById("parking-container");
+            const totalFloors = 6;
+            const spotsPerFloor = 533;
+
+            parkingContainer.innerHTML = "";
+
+            for (let floor = 1; floor <= totalFloors; floor++) {
+                const floorDiv = document.createElement("div");
+                floorDiv.classList.add("parking-floor");
+                floorDiv.id = `floor-${floor}`;
+
+                floorDiv.innerHTML = `
+                    <h3>Patro ${floor}</h3>
+                    <p id="spots-floor-${floor}">Volná místa: <span id="free-spots-${floor}">${spotsPerFloor}</span></p>
+                    <p>Obsazená místa: <span id="occupied-spots-${floor}">0</span></p>
+                    <input type="number" id="input-spots-${floor}" min="0" max="${spotsPerFloor}" value="0" onchange="updateSpots(${floor}, ${spotsPerFloor})">
+                    <button onclick="closeFloor(${floor})">Zavřít patro</button>
+                `;
+                parkingContainer.appendChild(floorDiv);
+            }
+        }
+
+        function updateSpots(floor, spotsPerFloor) {
+            const input = document.getElementById(`input-spots-${floor}`);
+            const occupiedSpots = parseInt(input.value);
+            const freeSpots = spotsPerFloor - occupiedSpots;
+
+            document.getElementById(`free-spots-${floor}`).textContent = freeSpots;
+            document.getElementById(`occupied-spots-${floor}`).textContent = occupiedSpots;
+        }
+
+        function closeFloor(floor) {
+            const floorDiv = document.getElementById(`floor-${floor}`);
+            const spotsParagraph = document.getElementById(`spots-floor-${floor}`);
+
+            if (floorDiv.classList.contains("closed")) {
+                floorDiv.classList.remove("closed");
+                spotsParagraph.textContent = `Volná místa: <span id="free-spots-${floor}">${533 - parseInt(document.getElementById(`input-spots-${floor}`).value)}</span>`;
+                floorDiv.querySelector("button").textContent = "Zavřít patro";
+            } else {
+                floorDiv.classList.add("closed");
+                spotsParagraph.textContent = "Patro uzavřeno";
+                floorDiv.querySelector("button").textContent = "Otevřít patro";
+            }
+        }
+    </script>
+    <style>
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #e9ecef;
+    margin: 0;
+    padding: 10px;
+}
+
+.container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 40px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    border-radius: 10px;
+}
+
+h1 {
+    font-size: 2.2em;
+    color: #2c76c8;
+    text-align: center;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.08);
+    letter-spacing: 0.5px;
+}
+
+.parking-floor {
+    background-color: #f9f9f9;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.parking-floor.closed {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+button {
+    background-color: #007bff;
+    color: #ffffff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    font-weight: bold;
+    font-size: 0.95em;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+button:hover {
+    background-color: #004085;
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+button:focus {
+    outline: 2px solid #007bff;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+}
+
+input[type="number"] {
+    width: 60px;
+    padding: 5px;
+    font-size: 1em;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Parkovací Dům</h1>
+        <div id="parking-container"></div>
+    </div>
+</body>
+</html>
